@@ -1,0 +1,494 @@
+{
+  "projects": [
+    {
+      "id": "churn-prediction-ai",
+      "name": "Churn-Prediction-AI",
+      "url": "https://github.com/hdmanoach/Churn-Prediction-AI",
+      "private": false,
+      "domain": "data-ia",
+      "tags": [
+        "Python",
+        "Scikit-learn",
+        "ML"
+      ],
+      "summary": {
+        "fr": "Utilise le machine learning pour analyser les clients et anticiper leur désabonnement.",
+        "en": "Uses machine learning to analyse customers and anticipate churn."
+      }
+    },
+    {
+      "id": "churn-knn",
+      "name": "churn-knn",
+      "url": "https://github.com/hdmanoach/churn-knn",
+      "private": false,
+      "domain": "data-ia",
+      "tags": [
+        "Python",
+        "k-NN",
+        "ML"
+      ],
+      "summary": {
+        "fr": "Prédiction du churn avec k-NN : préparation des données et évaluation du modèle.",
+        "en": "Churn prediction with k-NN: data preparation and model evaluation."
+      }
+    },
+    {
+      "id": "analyse-ventes-numpy",
+      "name": "analyse-ventes-numpy",
+      "url": "https://github.com/hdmanoach/analyse-ventes-numpy",
+      "private": false,
+      "domain": "data-ia",
+      "tags": [
+        "Python",
+        "NumPy",
+        "Data"
+      ],
+      "summary": {
+        "fr": "Analyse de données de ventes et calculs numériques avec Python et NumPy.",
+        "en": "Sales data analysis and numerical computing with Python and NumPy."
+      }
+    },
+    {
+      "id": "generateur-films",
+      "name": "generateur-films",
+      "url": "https://github.com/hdmanoach/generateur-films",
+      "private": false,
+      "domain": "data-ia",
+      "tags": [
+        "Python",
+        "TMDB",
+        "Gemini"
+      ],
+      "summary": {
+        "fr": "Recommande des films ou séries à partir de préférences et de données TMDB, avec Gemini.",
+        "en": "Recommends movies or series from preferences and TMDB data, powered by Gemini."
+      }
+    },
+    {
+      "id": "web-scraper-to-get-news-article-content",
+      "name": "Web-scraper-to-get-news-article-content",
+      "url": "https://github.com/hdmanoach/Web-scraper-to-get-news-article-content",
+      "private": false,
+      "domain": "data-ia",
+      "tags": [
+        "Python",
+        "Scraping",
+        "BS4"
+      ],
+      "summary": {
+        "fr": "Récupère automatiquement les informations et le contenu d'articles de presse.",
+        "en": "Automatically collects metadata and content from news articles."
+      }
+    },
+    {
+      "id": "coursesum",
+      "name": "CourseSum",
+      "url": "https://github.com/hdmanoach/CourseSum",
+      "private": true,
+      "domain": "data-ia",
+      "tags": [
+        "IA",
+        "NLP",
+        "Python"
+      ],
+      "summary": {
+        "fr": "Projet de résumé de cours automatique.",
+        "en": "Automatic course summarisation project."
+      }
+    },
+    {
+      "id": "nexora-systems",
+      "name": "nexora-systems",
+      "url": "https://github.com/hdmanoach/nexora-systems",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "Debian",
+        "Samba AD",
+        "Zabbix"
+      ],
+      "summary": {
+        "fr": "Infrastructure d'entreprise sous Debian avec services réseau, Samba AD, stockage, supervision Zabbix et sauvegardes.",
+        "en": "Enterprise infrastructure on Debian with network services, Samba AD, storage, Zabbix monitoring and backups."
+      }
+    },
+    {
+      "id": "linux-manager",
+      "name": "linux-manager",
+      "url": "https://github.com/hdmanoach/linux-manager",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "Linux",
+        "Flask",
+        "Audit"
+      ],
+      "summary": {
+        "fr": "Interface Flask pour gérer des utilisateurs et groupes Linux, avec authentification et journal d'audit.",
+        "en": "Flask interface to manage Linux users and groups, with authentication and audit logging."
+      }
+    },
+    {
+      "id": "windows-server-cybersecurity-lab",
+      "name": "windows-server-cybersecurity-lab",
+      "url": "https://github.com/hdmanoach/windows-server-cybersecurity-lab",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "Windows Server",
+        "AD",
+        "Wazuh"
+      ],
+      "summary": {
+        "fr": "Environnement hybride Windows/Linux avec Active Directory, DNS, DHCP, GPO et Wazuh.",
+        "en": "Hybrid Windows/Linux environment with Active Directory, DNS, DHCP, GPO and Wazuh."
+      }
+    },
+    {
+      "id": "rese-multi-sites-ospf-hsrp-blt",
+      "name": "Reseau-Multi-Sites-OSPF-HSRP-BLT",
+      "url": "https://github.com/hdmanoach/Reseau-Multi-Sites-OSPF-HSRP-BLT",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "OSPF",
+        "HSRP",
+        "Cisco"
+      ],
+      "summary": {
+        "fr": "Maquette réseau multi-sites avec OSPF, HSRP, VLAN, services DHCP/DNS et contrôles d'accès.",
+        "en": "Multi-site network design with OSPF, HSRP, VLANs, DHCP/DNS services and access control."
+      }
+    },
+    {
+      "id": "reseau-entreprise-vlan-dhcp",
+      "name": "Reseau-Entreprise-VLAN-DHCP",
+      "url": "https://github.com/hdmanoach/Reseau-Entreprise-VLAN-DHCP",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "VLAN",
+        "DHCP",
+        "ACL"
+      ],
+      "summary": {
+        "fr": "Infrastructure réseau d'entreprise avec VLAN, routage inter-VLAN, DHCP et ACL.",
+        "en": "Enterprise network infrastructure with VLANs, inter-VLAN routing, DHCP and ACLs."
+      }
+    },
+    {
+      "id": "projet_sysadmin",
+      "name": "Projet_Sysadmin",
+      "url": "https://github.com/hdmanoach/Projet_Sysadmin",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [
+        "Red Hat",
+        "Linux",
+        "Bash"
+      ],
+      "summary": {
+        "fr": "Projet d'administration Red Hat documenté, avec rapport et fichiers associés.",
+        "en": "Documented Red Hat administration project with report and associated files."
+      }
+    },
+    {
+      "id": "linux-system-monitor",
+      "name": "Linux-System-Monitor",
+      "url": "https://github.com/hdmanoach/Linux-System-Monitor",
+      "private": false,
+      "domain": "sysadmin",
+      "tags": [],
+      "summary": {
+        "fr": "Tableau de bord Flask pour surveiller CPU, RAM, disques, réseau, processus, services systemd et applications d'un serveur Linux. Interface sombre responsive, historique SQLite 24 h, alertes SMTP/Discord, analyse IA optionnelle (Gemini) et authentification sécurisée",
+        "en": "Tableau de bord Flask pour surveiller CPU, RAM, disques, réseau, processus, services systemd et applications d'un serveur Linux. Interface sombre responsive, historique SQLite 24 h, alertes SMTP/Discord, analyse IA optionnelle (Gemini) et authentification sécurisée"
+      }
+    },
+    {
+      "id": "smarttraffic-iot",
+      "name": "smarttraffic-iot",
+      "url": "https://github.com/hdmanoach/smarttraffic-iot",
+      "private": false,
+      "domain": "devops",
+      "tags": [
+        "Docker",
+        "FastAPI",
+        "Next.js"
+      ],
+      "summary": {
+        "fr": "Architecture microservices de supervision routière avec FastAPI, worker Python, dashboard Next.js et Docker.",
+        "en": "Microservices architecture for traffic monitoring with FastAPI, a Python worker, a Next.js dashboard and Docker."
+      }
+    },
+    {
+      "id": "dockerfile",
+      "name": "dockerfile",
+      "url": "https://github.com/hdmanoach/dockerfile",
+      "private": false,
+      "domain": "devops",
+      "tags": [
+        "Docker",
+        "Flask"
+      ],
+      "summary": {
+        "fr": "Conteneurise avec Docker une application Flask de gestion de rendez-vous.",
+        "en": "Dockerises a Flask appointment management application."
+      }
+    },
+    {
+      "id": "gh-deployment-workflow",
+      "name": "gh-deployment-workflow",
+      "url": "https://github.com/hdmanoach/gh-deployment-workflow",
+      "private": false,
+      "domain": "devops",
+      "tags": [
+        "GitHub Actions",
+        "CI/CD",
+        "Pages"
+      ],
+      "summary": {
+        "fr": "Déploiement automatisé d'un site statique via GitHub Actions sur GitHub Pages.",
+        "en": "Automated deployment of a static site with GitHub Actions to GitHub Pages."
+      }
+    },
+    {
+      "id": "certification-aws",
+      "name": "certification-aws",
+      "url": "https://github.com/hdmanoach/certification-aws",
+      "private": false,
+      "domain": "devops",
+      "tags": [
+        "AWS",
+        "Certification",
+        "Cloud"
+      ],
+      "summary": {
+        "fr": "Notes, feuille de route et exemples pour préparer des certifications AWS.",
+        "en": "Notes, roadmap and examples to prepare AWS certifications."
+      }
+    },
+    {
+      "id": "portfolio-devops-admin",
+      "name": "portfolio-devops-admin",
+      "url": "https://github.com/hdmanoach/portfolio-devops-admin",
+      "private": false,
+      "domain": "devops",
+      "tags": [
+        "Next.js",
+        "Pages",
+        "CI/CD"
+      ],
+      "summary": {
+        "fr": "Ce portfolio : projets d'administration systèmes, infrastructure, DevOps et sécurité.",
+        "en": "This portfolio: systems administration, infrastructure, DevOps and security projects."
+      }
+    },
+    {
+      "id": "webaudit",
+      "name": "webaudit",
+      "url": "https://github.com/hdmanoach/webaudit",
+      "private": false,
+      "domain": "cyber",
+      "tags": [
+        "Python",
+        "Audit",
+        "OWASP"
+      ],
+      "summary": {
+        "fr": "Outil Python d'audit web avec modules, tests et documentation.",
+        "en": "Python web auditing tool with modules, tests and documentation."
+      }
+    },
+    {
+      "id": "security-agent",
+      "name": "security-agent",
+      "url": "https://github.com/hdmanoach/security-agent",
+      "private": false,
+      "domain": "cyber",
+      "tags": [
+        "IDS",
+        "Python",
+        "Dashboard"
+      ],
+      "summary": {
+        "fr": "Agent IDS de laboratoire qui analyse des incidents SSH et web et les présente dans un tableau de bord.",
+        "en": "Lab IDS agent that analyses SSH and web incidents and presents them in a dashboard."
+      }
+    },
+    {
+      "id": "firewall-formation-lab",
+      "name": "firewall-formation-lab",
+      "url": "https://github.com/hdmanoach/firewall-formation-lab",
+      "private": false,
+      "domain": "cyber",
+      "tags": [
+        "OPNsense",
+        "FortiGate",
+        "VPN"
+      ],
+      "summary": {
+        "fr": "Laboratoire OPNsense et FortiGate : segmentation, filtrage réseau et VPN.",
+        "en": "OPNsense and FortiGate lab: segmentation, network filtering and VPN."
+      }
+    },
+    {
+      "id": "gestion-etudiant",
+      "name": "gestion-etudiant",
+      "url": "https://github.com/hdmanoach/gestion-etudiant",
+      "private": false,
+      "domain": "cyber",
+      "tags": [
+        "2FA",
+        "Auth",
+        "OWASP"
+      ],
+      "summary": {
+        "fr": "Application de gestion d'étudiants avec 2FA, rôles et protections contre des vulnérabilités web.",
+        "en": "Student management application with 2FA, roles and protections against web vulnerabilities."
+      }
+    },
+    {
+      "id": "script-python-cybersecurit-",
+      "name": "script-python-cybersecurit-",
+      "url": "https://github.com/hdmanoach/script-python-cybersecurit-",
+      "private": true,
+      "domain": "cyber",
+      "tags": [
+        "Logs",
+        "Detection",
+        "Python"
+      ],
+      "summary": {
+        "fr": "Analyse de logs, détection d'intrusions, alertes et visualisation.",
+        "en": "Log analysis, intrusion detection, alerting and visualisation."
+      }
+    },
+    {
+      "id": "recette-api",
+      "name": "recette-api",
+      "url": "https://github.com/hdmanoach/recette-api",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "FastAPI",
+        "REST",
+        "Python"
+      ],
+      "summary": {
+        "fr": "API REST FastAPI pour gérer des recettes.",
+        "en": "REST API built with FastAPI to manage recipes."
+      }
+    },
+    {
+      "id": "recette-frontend",
+      "name": "recette-frontend",
+      "url": "https://github.com/hdmanoach/recette-frontend",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "React"
+      ],
+      "summary": {
+        "fr": "Interface Next.js et TypeScript pour l'API de recettes.",
+        "en": "Next.js and TypeScript interface for the recipe API."
+      }
+    },
+    {
+      "id": "gestion_client",
+      "name": "gestion_client",
+      "url": "https://github.com/hdmanoach/gestion_client",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "Flask",
+        "CRUD",
+        "Python"
+      ],
+      "summary": {
+        "fr": "Application Flask de gestion de clients avec opérations CRUD, recherche et pagination.",
+        "en": "Flask client management application with CRUD operations, search and pagination."
+      }
+    },
+    {
+      "id": "appointment-management-system",
+      "name": "Appointment-management-system",
+      "url": "https://github.com/hdmanoach/Appointment-management-system",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "Web",
+        "Planning",
+        "CRUD"
+      ],
+      "summary": {
+        "fr": "Application web de planification et de suivi de rendez-vous.",
+        "en": "Web application for scheduling and tracking appointments."
+      }
+    },
+    {
+      "id": "examenbenin",
+      "name": "examenbenin",
+      "url": "https://github.com/hdmanoach/examenbenin",
+      "private": true,
+      "domain": "webdev",
+      "tags": [
+        "Education",
+        "App",
+        "Full-stack"
+      ],
+      "summary": {
+        "fr": "Application éducative pour organiser la préparation et la gestion des examens.",
+        "en": "Educational application to organise exam preparation and management."
+      }
+    },
+    {
+      "id": "convertisseur-devises",
+      "name": "convertisseur-devises",
+      "url": "https://github.com/hdmanoach/convertisseur-devises",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "API",
+        "Finance",
+        "Web"
+      ],
+      "summary": {
+        "fr": "Convertisseur de devises en temps réel qui estime aussi les frais de transaction.",
+        "en": "Real-time currency converter that also estimates transaction fees."
+      }
+    },
+    {
+      "id": "generateur-citations",
+      "name": "generateur-citations",
+      "url": "https://github.com/hdmanoach/generateur-citations",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "Next.js",
+        "TypeScript"
+      ],
+      "summary": {
+        "fr": "Application web de génération de citations avec Next.js et TypeScript.",
+        "en": "Web application generating quotes with Next.js and TypeScript."
+      }
+    },
+    {
+      "id": "echolecture",
+      "name": "EchoLecture",
+      "url": "https://github.com/hdmanoach/EchoLecture",
+      "private": false,
+      "domain": "webdev",
+      "tags": [
+        "TypeScript",
+        "Vite",
+        "Web"
+      ],
+      "summary": {
+        "fr": "Application de lecture avec une interface web TypeScript/Vite.",
+        "en": "Reading application with a TypeScript/Vite web interface."
+      }
+    }
+  ]
+}
