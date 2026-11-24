@@ -1,7 +1,7 @@
 import type { DomainId, Project } from "./types";
 
 export const OWNER = process.env.NEXT_PUBLIC_GITHUB_OWNER ?? "hdmanoach";
-export const REPO = process.env.NEXT_PUBLIC_GITHUB_REPO ?? "portfolio-devops-admin";
+export const REPO = process.env.NEXT_PUBLIC_GITHUB_REPO ?? "manoach-portfolio";
 
 export const CURATOR_PASSWORD_HASH =
   "b64dd2b0bd2cb6f384ddd267cc646aea701d314e3d19af0a10e1d557d71fa3b1";

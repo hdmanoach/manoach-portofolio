@@ -25,8 +25,13 @@ def load_env():
 load_env()
 
 OWNER = os.environ.get("NEXT_PUBLIC_GITHUB_OWNER", "hdmanoach")
-REPO = os.environ.get("NEXT_PUBLIC_GITHUB_REPO", "portfolio-devops-admin")
-CURATE_URL = f"https://{OWNER}.github.io/{REPO}/curate/"
+REPO = os.environ.get("NEXT_PUBLIC_GITHUB_REPO", "manoach-portfolio")
+SITE_URL = os.environ.get("NEXT_PUBLIC_SITE_URL", "").rstrip("/")
+CURATE_URL = (
+    f"{SITE_URL}/curate/"
+    if SITE_URL
+    else f"https://{OWNER}.github.io/{REPO}/curate/"
+)
 
 
 def gh_list_repos():

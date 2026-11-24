@@ -268,9 +268,9 @@
       }
     },
     {
-      "id": "portfolio-devops-admin",
-      "name": "portfolio-devops-admin",
-      "url": "https://github.com/hdmanoach/portfolio-devops-admin",
+      "id": "manoach-portfolio",
+      "name": "manoach-portfolio",
+      "url": "https://github.com/hdmanoach/manoach-portfolio",
       "private": false,
       "domain": "devops",
       "tags": [
