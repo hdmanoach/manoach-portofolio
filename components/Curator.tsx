@@ -134,6 +134,10 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
   const [busy, setBusy] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   const [baseline, setBaseline] = useState<Project[]>(initialProjects);
+  const [tokenCheck, setTokenCheck] = useState<{
+    kind: "checking" | "ok" | "invalid" | "readonly" | "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     try {
@@ -188,6 +192,48 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
       setToken(value);
     }
   };
+
+  useEffect(() => {
+    if (!unlocked || !token) {
+      setTokenCheck(null);
+      return;
+    }
+    let cancelled = false;
+    setTokenCheck({ kind: "checking", message: "Vérification du token…" });
+    const id = window.setTimeout(() => {
+      void (async () => {
+        try {
+          await gh("/user", token);
+          const meta = await gh(`/repos/${OWNER}/${REPO}`, token);
+          if (cancelled) return;
+          if (meta?.permissions?.push) {
+            setTokenCheck({ kind: "ok", message: "✓ Token valide — push autorisé sur ce dépôt" });
+          } else {
+            setTokenCheck({
+              kind: "readonly",
+              message:
+                "⚠ Token valide mais sans droit d'écriture — Permissions → Contents: read & write"
+            });
+          }
+        } catch (error) {
+          if (cancelled) return;
+          const message = error instanceof Error ? error.message : String(error);
+          if (message.includes("401") || message.includes("403")) {
+            setTokenCheck({
+              kind: "invalid",
+              message: "✗ Token invalide ou expiré — régénère-le (Fine-grained tokens)"
+            });
+          } else {
+            setTokenCheck({ kind: "error", message });
+          }
+        }
+      })();
+    }, 500);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(id);
+    };
+  }, [unlocked, token]);
   const rows = useMemo<Row[]>(() => {
     const base: Row[] = (repos ?? []).map((repo) => ({
       name: repo.name,
@@ -365,6 +411,13 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
     try {
       const { payload, skipped } = buildPayload(projects);
       const meta = await gh(`/repos/${OWNER}/${REPO}`, token);
+      if (!meta?.permissions?.push) {
+        setStatus({
+          kind: "err",
+          text: "Token sans droit d'écriture sur ce dépôt — Permissions → Contents: read & write."
+        });
+        return;
+      }
       const branch = meta.default_branch as string;
       let sha: string | undefined;
       try {
@@ -389,10 +442,17 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
       setBaseline(projects);
       setStatus({
         kind: "ok",
-        text: `Poussé sur ${branch} (${payload.projects.length} projet(s)) — GitHub Actions redéploie le site.`
+        text: `Poussé sur ${branch} (${payload.projects.length} projet(s)) — le déploiement (Vercel) se relance tout seul.`
       });
     } catch (error) {
-      setStatus({ kind: "err", text: error instanceof Error ? error.message : String(error) });
+      const message = error instanceof Error ? error.message : String(error);
+      setStatus({
+        kind: "err",
+        text:
+          message.includes("401") || message.includes("403")
+            ? "Token invalide ou expiré — régénère-le (Developer settings → Fine-grained tokens)."
+            : message
+      });
     } finally {
       setBusy(false);
     }
@@ -468,6 +528,22 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
                 </span>
               </div>
 
+              {tokenCheck && (
+                <p
+                  className={`curator-status ${
+                    tokenCheck.kind === "ok"
+                      ? "ok"
+                      : tokenCheck.kind === "checking"
+                        ? "info"
+                        : tokenCheck.kind === "readonly"
+                          ? "warn"
+                          : "err"
+                  }`}
+                >
+                  {tokenCheck.message}
+                </p>
+              )}
+
               <div className="curator-controls">
                 <button type="button" className="curator-btn" onClick={download}>
                   Télécharger projects.json
@@ -496,8 +572,10 @@ export default function Curator({ initialProjects }: { initialProjects: Project[
               <p className="curator-help">
                 Sans token : lecture des dépôts publics + téléchargement du fichier. Avec un token
                 fine-grained sur ce dépôt (Contents : read &amp; write) : dépôts privés visibles et
-                envoi direct sur <code>main</code> — le site se redéploie tout seul. Le token reste
-                dans la session du navigateur, jamais dans le code.
+                envoi direct sur <code>main</code> — Vercel redéploie tout seul. Le token est
+                vérifié avant chaque push (validité + droits d&apos;écriture) et reste dans la
+                session du navigateur : jamais dans le code, jamais dans <code>.env</code> — un
+                token lisible dans le code public serait volable par n&apos;importe qui.
               </p>
             </div>
 

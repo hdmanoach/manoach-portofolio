@@ -35,7 +35,7 @@ scripts/             curate.mjs (CLI), notify-new-repos.py (notification email)
 
 Deux entrées équivalentes, toutes deux éditent `data/projects.json` :
 
-1. **CLI** : `npm run curate` — interroge l'API GitHub, demande publier/retirer pour chaque dépôt, importe le README comme proposition de résumé.
+1. **CLI** : `npm run curate` — interroge l'API GitHub, demande publier/retirer pour chaque dépôt, importe le README comme proposition de résumé. Si `GITHUB_TOKEN` est défini dans `.env` (modèle : `.env.example`), le token est **validé** (identité + droits d'écriture sur le dépôt) avant de pouvoir pousser `data/projects.json` sur GitHub.
 2. **Web** : page `/curate/` (protégée par mot de passe, `noindex`) — recherche, blocs par date de push, boutons Ajouter / Retirer / Mettre à jour, import README et topics, téléchargement du fichier ou push direct sur GitHub.
 
 Ordre des domaines : `data-ia`, `sysadmin`, `devops`, `cyber`, `webdev` (2 par ligne sur l'accueil).
@@ -74,7 +74,7 @@ Sans secrets, l'action logue et réessaie à l'heure suivante.
 
 ## Variables d'environnement
 
-- `.env` (localement, **ignoré par git**) : `NEXT_PUBLIC_GITHUB_OWNER`, `NEXT_PUBLIC_GITHUB_REPO`, `NEXT_PUBLIC_SITE_URL` — les défauts dans le code couvrent aussi la CI
+- `.env` (localement, **ignoré par git**) : `NEXT_PUBLIC_GITHUB_OWNER`, `NEXT_PUBLIC_GITHUB_REPO`, `NEXT_PUBLIC_SITE_URL`, `GITHUB_TOKEN` (token fine-grained du CLI — jamais de `NEXT_PUBLIC_*` pour un secret) — les défauts dans le code couvrent aussi la CI
 - `.env.local` (gitignoré) : tout ce qui est secret (tokens…)
 - `NEXT_PUBLIC_BASE_PATH` : préfixe de chemin, défini par le workflow Pages si réactivé ; absent ailleurs (dev, Vercel) → racine
 

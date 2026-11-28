@@ -17,6 +17,7 @@ await (async () => {
 })();
 
 const OWNER = process.env.NEXT_PUBLIC_GITHUB_OWNER || "hdmanoach";
+const REPO = process.env.NEXT_PUBLIC_GITHUB_REPO || "manoach-portfolio";
 const FILE = new URL("../data/projects.json", import.meta.url);
 const DOMAINS = ["data-ia", "sysadmin", "devops", "cyber", "webdev"];
 
@@ -94,6 +95,85 @@ async function save(projects) {
   await writeFile(FILE, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
+function apiHeaders() {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": "portfolio-curator"
+  };
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  return headers;
+}
+
+async function validateToken() {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    return { ok: false, reason: "absent", message: "GITHUB_TOKEN absent de .env (voir .env.example)" };
+  }
+  const userRes = await fetch("https://api.github.com/user", { headers: apiHeaders() });
+  if (userRes.status === 401 || userRes.status === 403) {
+    return { ok: false, reason: "invalid", message: "token invalide ou expiré (401/403)" };
+  }
+  if (!userRes.ok) {
+    return { ok: false, reason: "api", message: `GitHub API ${userRes.status} sur /user` };
+  }
+  const user = await userRes.json();
+  const repoRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`, {
+    headers: apiHeaders()
+  });
+  if (!repoRes.ok) {
+    return { ok: false, reason: "api", message: `dépôt ${OWNER}/${REPO} inaccessible (${repoRes.status})` };
+  }
+  const repo = await repoRes.json();
+  if (!repo.permissions?.push) {
+    return {
+      ok: false,
+      reason: "readonly",
+      message: "token valide mais sans droit d'écriture (Permissions → Contents: read & write)"
+    };
+  }
+  return { ok: true, user: user.login };
+}
+
+async function pushProjects(projects) {
+  const check = await validateToken();
+  if (!check.ok) {
+    console.log(`✗ Push refusé — ${check.message}.`);
+    console.log("  Fichier enregistré localement seulement (data/projects.json).");
+    return false;
+  }
+  console.log(`✓ Token valide (${check.user}) — droit d'écriture sur ${OWNER}/${REPO}.`);
+  const fileRes = await fetch(
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/data/projects.json`,
+    { headers: apiHeaders() }
+  );
+  if (!fileRes.ok) {
+    throw new Error(`Lecture de data/projects.json impossible (${fileRes.status})`);
+  }
+  const sha = (await fileRes.json()).sha;
+  const content = Buffer.from(
+    `${JSON.stringify({ projects: sortProjects(projects) }, null, 2)}\n`,
+    "utf8"
+  ).toString("base64");
+  const putRes = await fetch(
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/data/projects.json`,
+    {
+      method: "PUT",
+      headers: apiHeaders(),
+      body: JSON.stringify({
+        message: "chore(data): update curated projects (cli)",
+        content,
+        sha
+      })
+    }
+  );
+  if (!putRes.ok) {
+    const detail = await putRes.text();
+    throw new Error(`Écriture refusée (${putRes.status}) — ${detail.slice(0, 200)}`);
+  }
+  console.log("✓ Poussé sur main — Vercel redéploie le site.");
+  return true;
+}
+
 async function fetchReadme(repo) {
   try {
     const headers = {
@@ -131,10 +211,22 @@ async function fetchReadme(repo) {
 }
 
 async function main() {
-  if (!process.env.GITHUB_TOKEN) {
+  const tokenCheck = await validateToken();
+  if (!tokenCheck.ok && tokenCheck.reason === "invalid") {
+    console.log(
+      "✗ GITHUB_TOKEN invalide ou expiré — corrige .env (modèle : .env.example) puis relance."
+    );
+    process.exitCode = 1;
+    return;
+  }
+  if (tokenCheck.ok) {
+    console.log(`Token : ✓ ${tokenCheck.user} — droits d'écriture sur ${OWNER}/${REPO} ✓\n`);
+  } else if (tokenCheck.reason === "absent") {
     console.log(
       "Remarque : sans GITHUB_TOKEN, les dépôts privés n'apparaîtront pas dans la liste GitHub.\n"
     );
+  } else {
+    console.log(`Token : ${tokenCheck.message} — lecture possible, push indisponible.\n`);
   }
 
   const repos = await fetchRepos();
@@ -205,6 +297,18 @@ async function main() {
 
   await save(projects);
   console.log(`Terminé — ${projects.length} projets dans data/projects.json`);
+
+  if (tokenCheck.ok) {
+    if (await confirm("Pousser data/projects.json sur GitHub ?")) {
+      await pushProjects(projects);
+    } else {
+      console.log("Push sauté — fichier prêt dans data/projects.json.");
+    }
+  } else if (tokenCheck.reason !== "absent") {
+    console.log(
+      "Pour pousser depuis ce terminal : ajoute un GITHUB_TOKEN valide dans .env (.env.example)."
+    );
+  }
 }
 
 main()
