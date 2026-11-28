@@ -1,5 +1,6 @@
 "use client";
 
+import { BackToTop } from "@/components/BackToTop";
 import { DomainPanel } from "@/components/DomainPanel";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
@@ -13,6 +14,7 @@ import {
 import { domains } from "@/lib/i18n";
 import { useLanguage } from "@/lib/language";
 import { projects, projectsByDomain } from "@/lib/projects";
+import { useScrollReveal } from "@/lib/use-scroll-reveal";
 
 interface CvLink {
   file: string;
@@ -33,6 +35,7 @@ function cvLabel(file: string, labels: Record<string, string>): string {
 
 export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
   const { lang, t } = useLanguage();
+  useScrollReveal();
 
   return (
     <>
@@ -69,7 +72,7 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
 
         <section id="apropos" className="section">
           <div className="container">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <div>
                 <p className="label">{t.aboutLabel}</p>
                 <h2>{t.aboutTitle}</h2>
@@ -77,13 +80,15 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
             </div>
 
             <div className="about-grid">
-              <div className="about-text">
+              <div className="about-text" data-reveal-stagger>
                 {aboutParagraphs.map((paragraph) => (
-                  <p key={paragraph.fr}>{paragraph[lang]}</p>
+                  <p key={paragraph.fr} data-reveal>
+                    {paragraph[lang]}
+                  </p>
                 ))}
 
                 {availableCvs.length > 0 && (
-                  <div className="cv-row">
+                  <div className="cv-row" data-reveal>
                     {availableCvs.map((cv) => (
                       <a key={cv.file} className="btn-cv" href={cv.href} download>
                         {cvLabel(cv.file, t.cvLabels)}
@@ -93,13 +98,13 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
                 )}
               </div>
 
-              <div className="fiche-stack">
-                <article className="fiche">
+              <div className="fiche-stack" data-reveal-stagger>
+                <article className="fiche" data-reveal>
                   <p className="fiche-tab">{education.tab[lang]}</p>
                   <h3 className="fiche-title">{education.degree[lang]}</h3>
                   <p className="fiche-meta">{education.place[lang]}</p>
                 </article>
-                <article className="fiche">
+                <article className="fiche" data-reveal>
                   <p className="fiche-tab">{learning.tab[lang]}</p>
                   <ul className="fiche-list">
                     {learning.lines.map((line) => (
@@ -114,16 +119,16 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
 
         <section id="competences" className="section alt">
           <div className="container">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <div>
                 <p className="label">{t.skillsLabel}</p>
                 <h2>{t.skillsTitle}</h2>
               </div>
             </div>
 
-            <div className="skills-grid">
+            <div className="skills-grid" data-reveal-stagger>
               {skills.map((group) => (
-                <article className="fiche skill-card" key={group.title.fr}>
+                <article className="fiche skill-card" key={group.title.fr} data-reveal>
                   <p className="fiche-tab">{group.title[lang]}</p>
                   <ul className="fiche-list">
                     {group.items.map((item) => (
@@ -138,7 +143,7 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
 
         <section id="projets" className="section">
           <div className="container">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <div>
                 <p className="label">{t.projectsLabel}</p>
                 <h2>{t.projectsTitle}</h2>
@@ -146,7 +151,7 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
               <p className="hint">{t.projectsHint}</p>
             </div>
 
-            <div className="domains">
+            <div className="domains" data-reveal-stagger>
               {domains.map((domain) => (
                 <DomainPanel
                   key={domain.id}
@@ -160,7 +165,7 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
 
         <section id="formations" className="section alt">
           <div className="container">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <div>
                 <p className="label">{t.trainingLabel}</p>
                 <h2>{t.trainingTitle}</h2>
@@ -168,9 +173,13 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
               <p className="hint">{t.trainingHint}</p>
             </div>
 
-            <div className="cert-stack">
+            <div className="cert-stack" data-reveal-stagger>
               {certifications.map((category) => (
-                <section className="fiche cert-category" key={category.title.fr}>
+                <section
+                  className="fiche cert-category"
+                  key={category.title.fr}
+                  data-reveal
+                >
                   <header className="cert-cat-head">
                     <p className="fiche-tab">
                       {category.emoji} {category.title[lang]}
@@ -180,9 +189,9 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
                     </span>
                   </header>
 
-                  <ul className="cert-list">
+                  <ul className="cert-list" data-reveal-stagger>
                     {category.items.map((item) => (
-                      <li className="cert-item" key={item.name.fr}>
+                      <li className="cert-item" key={item.name.fr} data-reveal>
                         <span className="cert-date">{item.date[lang]}</span>
                         <div className="cert-body">
                           <div className="cert-title-row">
@@ -202,14 +211,14 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
 
         <section id="observations" className="section">
           <div className="container narrow">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
               <div>
                 <p className="label">{t.valueLabel}</p>
                 <h2>{t.valueTitle}</h2>
               </div>
             </div>
 
-            <div className="fiche">
+            <div className="fiche" data-reveal>
               <ul className="value-list">
                 {values.map((value) => (
                   <li key={value.fr}>{value[lang]}</li>
@@ -221,7 +230,7 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
       </main>
 
       <footer className="site-footer" id="contact">
-        <div className="container inner">
+        <div className="container inner" data-reveal>
           <p className="note">
             © 2026 Manoach HOSSOU DODO — {t.footerNote}
           </p>
@@ -243,6 +252,8 @@ export default function HomePage({ availableCvs }: { availableCvs: CvLink[] }) {
           </nav>
         </div>
       </footer>
+
+      <BackToTop />
     </>
   );
 }

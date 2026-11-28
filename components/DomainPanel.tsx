@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/language";
 import type { DomainMeta, Project } from "@/lib/types";
 import { ProjectCard } from "./ProjectCard";
@@ -9,15 +9,44 @@ export function DomainPanel({ domain, projects }: { domain: DomainMeta; projects
   const { lang, t } = useLanguage();
   const count = projects.length;
   const [index, setIndex] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
   const current = count === 0 ? 0 : Math.min(index, count - 1);
+
+  useEffect(() => {
+    if (!autoplay || count < 2) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: number | undefined;
+
+    const advance = () => {
+      setIndex((previous) => (previous + 1) % count);
+    };
+    const syncTimer = () => {
+      if (reducedMotion.matches) {
+        if (timer !== undefined) window.clearInterval(timer);
+        timer = undefined;
+      } else if (timer === undefined) {
+        timer = window.setInterval(advance, 30_000);
+      }
+    };
+
+    syncTimer();
+    reducedMotion.addEventListener("change", syncTimer);
+
+    return () => {
+      reducedMotion.removeEventListener("change", syncTimer);
+      if (timer !== undefined) window.clearInterval(timer);
+    };
+  }, [autoplay, count]);
 
   const go = (next: number) => {
     if (count === 0) return;
+    setAutoplay(false);
     setIndex(Math.max(0, Math.min(next, count - 1)));
   };
 
   return (
-    <section className="dossier" aria-label={domain.title[lang]}>
+    <section className="dossier" aria-label={domain.title[lang]} data-reveal>
       <header className="dossier-head">
         <div>
           <p className="dossier-num">
@@ -47,7 +76,11 @@ export function DomainPanel({ domain, projects }: { domain: DomainMeta; projects
           <div className="viewport">
             <div className="track" style={{ transform: `translateX(-${current * 100}%)` }}>
               {projects.map((project, i) => (
-                <div className="slide" key={project.id} inert={i !== current}>
+                <div
+                  className={`slide${i === current ? " active" : ""}`}
+                  key={project.id}
+                  inert={i !== current}
+                >
                   <ProjectCard project={project} index={i} total={count} />
                 </div>
               ))}

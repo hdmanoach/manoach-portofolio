@@ -233,6 +233,12 @@ button {
   border: 1px solid var(--line);
   box-shadow: 3px 3px 0 var(--shadow);
   padding: 1rem 1.1rem 1.15rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.fiche:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0 var(--shadow);
 }
 
 .fiche-tab {
@@ -520,6 +526,12 @@ button {
   display: flex;
   flex-direction: column;
   min-height: 385px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.dossier:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 7px 0 var(--shadow);
 }
 
 .dossier-head {
@@ -592,6 +604,21 @@ button {
 
 .slide {
   min-width: 100%;
+}
+
+@keyframes project-card-enter {
+  from {
+    opacity: 0.75;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide.active .project-card {
+  animation: project-card-enter 280ms ease-out both;
 }
 
 .project-card {
@@ -791,6 +818,53 @@ button {
   padding: 1.5rem 0 2.6rem;
 }
 
+.back-to-top {
+  position: fixed;
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--card-hi);
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.96);
+  transition:
+    opacity 250ms ease,
+    visibility 0s linear 250ms,
+    transform 250ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition-delay: 0s;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: var(--stamp);
+  border-color: var(--stamp);
+  box-shadow: 4px 5px 0 var(--shadow);
+}
+
+.back-to-top.visible:hover,
+.back-to-top.visible:focus-visible {
+  transform: translateY(-1px) scale(1.02);
+}
+
 .site-footer .inner {
   display: flex;
   align-items: center;
@@ -832,12 +906,59 @@ button {
   outline-offset: 2px;
 }
 
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+html.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out,
+    box-shadow 180ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.reveal-ready [data-reveal].is-visible.fiche:hover,
+html.reveal-ready [data-reveal].is-visible.dossier:hover {
+  transform: translateY(-2px);
+  transition-delay: 0s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    transition: none;
+    animation: none;
+  }
+
+  html.reveal-ready [data-reveal].is-visible,
+  .back-to-top,
+  .site-nav a,
+  .language-button,
+  .fiche,
+  .btn-cv,
+  .dossier,
+  .link-github,
+  .btn-access,
+  .arrow,
   .track {
     transition: none;
+  }
+
+  .slide.active .project-card {
+    animation: none;
+  }
+
+  html.reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
 

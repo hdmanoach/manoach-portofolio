@@ -35,6 +35,7 @@ interface Strings {
   emptyDomain: string;
   footerNote: string;
   footerContact: string;
+  backToTop: string;
   linkedIn: string;
   github: string;
   email: string;
@@ -80,6 +81,7 @@ const fr: Strings = {
   emptyDomain: "Aucun dépôt publié dans ce domaine pour l'instant.",
   footerNote: "Classé et conservé à Cotonou, Bénin",
   footerContact: "Contact",
+  backToTop: "Retour en haut",
   linkedIn: "LinkedIn",
   github: "GitHub",
   email: "Email",
@@ -125,6 +127,7 @@ const en: Strings = {
   emptyDomain: "No repository published in this domain yet.",
   footerNote: "Filed and kept in Cotonou, Benin",
   footerContact: "Contact",
+  backToTop: "Back to top",
   linkedIn: "LinkedIn",
   github: "GitHub",
   email: "Email",
